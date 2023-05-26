@@ -6,7 +6,7 @@ use std::fs::File;
 use clap::{Arg, App};
 
 fn main() {
-    let matches: clap::ArgMatches = App::new("CSV Filter")
+    let matches: clap::ArgMatches = App::new("CSV Filter v1.0.0")
         .arg(Arg::with_name("input")
             .short("i")
             .long("input")
