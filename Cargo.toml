@@ -1,0 +1,8 @@
+[package]
+name = "csv_filter"
+version = "0.1.0"
+
+
+[dependencies]
+csv = "1.2.1"
+clap = "2.33.3"
