@@ -39,30 +39,29 @@ fn read_csv_file(filename: &str, keywords: &str) -> Result<(), Box<dyn Error>> {
 
     for result in rdr.records() {
         let record: csv::StringRecord = result?;
-        let text: &str = record.get(0).unwrap_or("");
+        let text: String = record.get(0).unwrap_or("").to_owned();
+        let lowercase_text: String = text.to_lowercase();
 
         let mut is_match: bool = true;
-        let has_positive_requirement: bool = false;
-        let mut has_negative_requirement: bool = false;
 
         for keyword in &keyword_list {
             let (prefix, keyword) = parse_keyword(keyword);
+            let lowercase_keyword: String = keyword.to_lowercase();
 
             if prefix == "-" {
-                has_negative_requirement = true;
-                if text.contains(keyword) {
+                if lowercase_text.contains(&lowercase_keyword) {
                     is_match = false;
                     break;
                 }
             } else {
-                if !text.contains(keyword) {
+                if !lowercase_text.contains(&lowercase_keyword) {
                     is_match = false;
                     break;
                 }
             }
         }
 
-        if is_match && (!has_positive_requirement || has_negative_requirement) {
+        if is_match {
             println!("{}", text);
         }
     }
